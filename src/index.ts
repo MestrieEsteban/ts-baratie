@@ -1,1 +1,6 @@
-console.log('Hello world!');
+import Reception from "./recpetion";
+
+const cluster = require('cluster');
+
+if (cluster.isMaster) new Reception()
+
