@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "clean": "yarn rimraf .build",
-    "build": "yarn babel src/ --out-dir .build --extensions '.ts' --quiet",
-    "start": "yarn build && node .build/server",
+    "build": "yarn babel src/ --out-dir .build --extensions .ts --quiet",
+    "start": "yarn build && node .build",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
