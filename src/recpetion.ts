@@ -1,13 +1,21 @@
 import { exit } from "process";
 import * as readline from 'readline';
 
+import { Kitchen } from './kitchen'
+import { DishType, DishSize } from './a/dish'
+
+
+
+
 class Reception {
 
 
 	public cookingTime: number;
 	public cooksKitchen: number;
 	public createTime: number;
-	private read: readline.Interface
+	public orders: Array<any>;
+	public kitchen: Kitchen
+	private read: readline.Interface;
 
 
 	constructor() {
@@ -19,21 +27,23 @@ class Reception {
 		if (this.cooksKitchen !== this.cooksKitchen) this.errorCooksKitchen()
 		if (this.createTime !== this.createTime) this.errorCreateTime()
 		this.read = readline.createInterface({ input: process.stdin })
-
-
-		console.log(`              |    |    |                 
+		
+		console.log(`
+              |    |    |                 
              )_)  )_)  )_)              
-            )___))___))___)\\            
-           )____)____)_____)\\\\
-         _____|____|____|____\\\\\\__
----------\\                   /---------
-        ^^^^^^^^^^^^^^^^^^^^^`);
+            )___))___))___)           
+           )____)____)_____)
+        ______|____|____|_____
+~~~~~~~~\\                   /~~~~~~~~
+        ^^^^^^^^^^^^^^^^^^^^^
+		`);
+		this.kitchen = new Kitchen(this.cookingTime, this.cooksKitchen, this.createTime)
 
 		this.takeOrder()
 	}
 
 	public async takeOrder() {
-		console.log(`What do you want ?`)
+		console.log(`Welcome aboard, what do you want to order ?`)
 		this.read.question('', async (order: string) => {
 			switch (order.toLowerCase()) {
 				case 'status':
@@ -41,8 +51,11 @@ class Reception {
 					console.log(this.cooksKitchen);
 					console.log(this.createTime);
 					break;
+				case 'good bye':
+					process.exit(0)
 				default:
 					this.getOrder(order)
+					this.kitchen.ordersKitchen(this.orders)
 					break;
 			}
 			this.takeOrder()
@@ -63,17 +76,25 @@ class Reception {
 	}
 
 	public getOrder(orders: string) {
+		let parsedOrder: Array<Object> = this.orders ? [...this.orders] : []
 		let ordersTab: Array<string> = orders.split(';');
-		let test = {}
 		ordersTab.forEach((element, index) => {
-			let a = element.split(' ');
-			a.forEach(e => {
-				if (e != '')
-					test[index].push(e)
+			var type: string, size: string, quantity: number
+			element.trim().split(' ', 3).forEach((one, i) => {
+				if (one != '') {
+					i === 0 ? type = one : ''
+					i === 1 ? size = one : ''
+					i === 2 ? quantity = parseInt(one.replace(/x/g, "")) : ''
+				}
 			})
+			if (type === undefined || size === undefined || quantity === undefined) {
+				console.log('Error');
+			}else
+				parsedOrder.push({ type, size, quantity })
 		});
-		console.log(test[0]);
-		
+		this.orders = parsedOrder
+		return;
+
 	}
 
 }

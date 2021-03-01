@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "clean": "yarn rimraf .build",
     "build": "yarn babel src/ --out-dir .build --extensions .ts --quiet",
-    "start": "yarn build && node .build",
+    "start": "ts-node ./src/",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
@@ -45,5 +45,8 @@
     "rimraf": "^3.0.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "terminal-image": "^1.2.1"
   }
 }
