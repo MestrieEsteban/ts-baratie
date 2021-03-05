@@ -92,18 +92,22 @@ export class Kitchen {
 		}
 	}
 
+	// Tout les ingrédients 
 	public getIngredients() {
 		return this.ingredients
 	}
 
+	// Un type d'ingredients 
 	public getIngredient(ingredient: string) {
 		return this.ingredients[ingredient]
 	}
 
+	// Ajouter 
 	public removeIngredient(ingredient: string, nb: number) {
 		this.ingredients[ingredient] = this.ingredients[ingredient] - nb
 	}
 
+	// Supprimer
 	public addIngredient(ingredient: string, nb: number) {
 		this.ingredients[ingredient] = this.ingredients[ingredient] + nb
 	}
