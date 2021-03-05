@@ -9,7 +9,7 @@ export const recipes: Recipe[] = [
 	{
 		name: 'Takoyaki',
 		bakingTime: 1,
-		ingredients: ['octopus', 'soja sauce']
+		ingredients: ['octopus', 'soja']
 	},
 	{
 		name: 'Katsudon',
@@ -29,6 +29,6 @@ export const recipes: Recipe[] = [
 	{
 		name: 'MatchaCookie',
 		bakingTime: 4,
-		ingredients: ['dough', 'matcha', 'chocolate', 'chief love']
+		ingredients: ['dought', 'matcha', 'chocolate', 'love']
 	}
 ]
