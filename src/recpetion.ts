@@ -3,6 +3,7 @@ import * as readline from 'readline';
 
 import { Kitchen } from './kitchen'
 import { DishType, DishSize } from './a/dish'
+import chalk = require("chalk");
 
 
 
@@ -27,8 +28,8 @@ class Reception {
 		if (this.cooksKitchen !== this.cooksKitchen) this.errorCooksKitchen()
 		if (this.createTime !== this.createTime) this.errorCreateTime()
 		this.read = readline.createInterface({ input: process.stdin })
-		
-		console.log(`
+
+		console.log(chalk.cyan(`
               |    |    |                 
              )_)  )_)  )_)              
             )___))___))___)           
@@ -36,14 +37,14 @@ class Reception {
         ______|____|____|_____
 ~~~~~~~~\\                   /~~~~~~~~
         ^^^^^^^^^^^^^^^^^^^^^
-		`);
+		`));
 		this.kitchen = new Kitchen(this.cookingTime, this.cooksKitchen, this.createTime)
 
 		this.takeOrder()
 	}
 
 	public async takeOrder() {
-		console.log(`Welcome aboard, what do you want to order ?`)
+		console.log(chalk.cyan(`Welcome aboard, what do you want to order ?`))
 		this.read.question('', async (order: string) => {
 			switch (order.toLowerCase()) {
 				case 'status':
@@ -53,6 +54,8 @@ class Reception {
 					break;
 				case 'good bye':
 					process.exit(0)
+				case 'orders':
+					console.log(this.orders);
 				default:
 					this.getOrder(order)
 					this.kitchen.ordersKitchen(this.orders)
@@ -76,7 +79,7 @@ class Reception {
 	}
 
 	public getOrder(orders: string) {
-		let parsedOrder: Array<Object> = this.orders ? [...this.orders] : []
+		let parsedOrder: Array<Object> = []
 		let ordersTab: Array<string> = orders.split(';');
 		ordersTab.forEach((element, index) => {
 			var type: string, size: string, quantity: number
@@ -89,7 +92,7 @@ class Reception {
 			})
 			if (type === undefined || size === undefined || quantity === undefined) {
 				console.log('Error');
-			}else
+			} else
 				parsedOrder.push({ type, size, quantity })
 		});
 		this.orders = parsedOrder
